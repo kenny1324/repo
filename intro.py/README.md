@@ -180,17 +180,25 @@ while True:
 
 ![Gambar Asli](image/1.png)
 
+Gambar asli merupakan hasil pembacaan file `rb.png` menggunakan fungsi `cv2.imread()`. Pada tahap ini, gambar belum mengalami perubahan warna sehingga warna yang ditampilkan masih sesuai dengan gambar aslinya.
+
 ### Grayscale
 
 ![Grayscale](image/2.png)
+
+Hasil gambar menjadi grayscale karena gambar dikonversi dari BGR menjadi grayscale menggunakan kode `gray = cv2.cvtColor(image, cv2.COLOR_BGR2GRAY)`. Kode tersebut mengubah gambar yang awalnya memiliki tiga channel warna, yaitu Blue, Green, dan Red, menjadi satu channel tingkat keabuan. Oleh karena itu, warna pada gambar tidak lagi ditampilkan sebagai warna asli, tetapi menjadi berbagai tingkat abu-abu dari hitam hingga putih.
 
 ### Filter Green
 
 ![Filter Green](image/3.png)
 
+Hasil gambar menjadi dominan berwarna hijau karena channel Blue dan Red dihilangkan menggunakan kode `green = image.copy()`, `green[:, :, 0] = 0`, dan `green[:, :, 2] = 0`. OpenCV menggunakan urutan channel BGR, yaitu channel `0` adalah Blue, channel `1` adalah Green, dan channel `2` adalah Red. Pada kode tersebut, channel Blue dan Red dibuat menjadi `0`, sedangkan channel Green tetap dipertahankan. Karena channel Green tetap memiliki nilai sedangkan channel Blue dan Red dihilangkan, maka hasil gambar menjadi lebih dominan berwarna hijau.
+
 ### Filter Pink
 
 ![Filter Pink](image/4.png)
+
+Hasil gambar menjadi dominan berwarna pink atau magenta karena channel Green dihilangkan menggunakan kode `pink = image.copy()` dan `pink[:, :, 1] = 0`. Pada OpenCV, channel Green berada pada indeks `1`, sehingga seluruh nilai pada channel tersebut dibuat menjadi `0`. Sementara itu, channel Blue dan Red tetap dipertahankan. Kombinasi warna Blue dan Red menghasilkan warna yang cenderung pink atau magenta, sehingga gambar terlihat seperti hasil filter pada gambar di atas.
 
 ---
 
@@ -200,7 +208,7 @@ while True:
 
 ![Colorful Image](image/5.png)
 
-Hasil menunjukkan perubahan warna gambar secara dinamis dengan mengubah nilai Hue pada ruang warna HSV.
+Hasil gambar dapat berubah-ubah warna secara dinamis karena program menggunakan ruang warna HSV, khususnya pada bagian Hue. Proses perubahan warna dilakukan dengan mengubah gambar dari BGR menjadi HSV menggunakan kode `hsv = cv2.cvtColor(image, cv2.COLOR_BGR2HSV)`. Setelah itu, nilai Hue pada seluruh piksel diubah menggunakan `hsv[:, :, 0] = hue`. Nilai Hue kemudian terus bertambah menggunakan `hue += 1`. Ketika nilai Hue mencapai `180`, nilainya dikembalikan menjadi `0` menggunakan kode `if hue >= 180: hue = 0`. Karena nilai Hue terus berubah dari `0` hingga `179`, jenis warna pada gambar juga berubah secara terus-menerus. Setelah itu, gambar dikonversi kembali dari HSV ke BGR menggunakan `colorful = cv2.cvtColor(hsv, cv2.COLOR_HSV2BGR)`. Perubahan nilai Hue inilah yang menghasilkan efek colorful atau rainbow pada gambar.
 
 ---
 
@@ -210,9 +218,10 @@ Hasil menunjukkan perubahan warna gambar secara dinamis dengan mengubah nilai Hu
 
 ![Kamera Asli](image/6.png)
 
+Gambar di atas merupakan tampilan asli dari webcam sebelum diberikan filter warna. Webcam dibuka menggunakan kode `cap = cv2.VideoCapture(0)`, di mana angka `0` digunakan untuk memilih kamera utama atau kamera default pada komputer. Setiap frame dari webcam kemudian dibaca menggunakan `ret, frame = cap.read()`. Proses pembacaan frame dilakukan secara terus-menerus di dalam perulangan `while`, sehingga kumpulan frame tersebut dapat ditampilkan sebagai video secara real-time.
+
 ### Filter Hijau
 
 ![Filter Hijau](image/image.png)
 
-Hasil menunjukkan bahwa filter warna dapat diterapkan pada video secara real-time menggunakan webcam. Kamera asli digunakan sebagai pembanding, sedangkan tampilan filter hijau merupakan hasil manipulasi channel warna pada setiap frame video.
-
+Hasil video menjadi lebih dominan berwarna hijau karena setiap frame diberikan manipulasi terhadap channel warna. Proses tersebut dilakukan dengan membuat salinan frame menggunakan `green = frame.copy()`. Setelah itu, channel Blue dikurangi menjadi 30% dari nilai aslinya menggunakan kode `green[:, :, 0] = green[:, :, 0] * 0.3`. Channel Green dipertahankan menggunakan kode `green[:, :, 1] = np.minimum(green[:, :, 1] * 1, 255)`, sedangkan channel Red juga dikurangi menjadi 30% menggunakan kode `green[:, :, 2] = green[:, :, 2] * 0.3`. Karena channel Blue dan Red dikurangi sementara channel Green dipertahankan, maka warna hijau menjadi lebih dominan pada setiap frame. Filter ini tidak membuat seluruh piksel menjadi satu warna hijau yang sama, karena nilai warna asli dari setiap piksel tetap digunakan dan hanya intensitas channel tertentu yang diubah. Proses tersebut dilakukan berulang kali pada setiap frame webcam sehingga menghasilkan video dengan filter hijau secara real-time.
