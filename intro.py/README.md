@@ -79,9 +79,7 @@ import cv2
 import numpy as np
 
 
-# ==========================================
 # READ IMAGE
-# ==========================================
 
 image = cv2.imread("rb.png")
 
@@ -90,9 +88,7 @@ if image is None:
     exit()
 
 
-# ==========================================
 # FILTER COLOR IMAGE
-# ==========================================
 
 # Grayscale
 gray = cv2.cvtColor(image, cv2.COLOR_BGR2GRAY)
@@ -111,9 +107,7 @@ pink = image.copy()
 pink[:, :, 1] = 0
 
 
-# ==========================================
 # SHOW IMAGE
-# ==========================================
 
 cv2.imshow("Gambar Asli", image)
 cv2.imshow("Grayscale", gray)
@@ -121,9 +115,7 @@ cv2.imshow("Green", green)
 cv2.imshow("Pink", pink)
 
 
-# ==========================================
 # PERUBAHAN WARNA MENGGUNAKAN HSV
-# ==========================================
 
 hue = 0
 
@@ -149,9 +141,7 @@ while True:
 cv2.destroyAllWindows()
 
 
-# ==========================================
 # FILTER COLOR VIDEO - WEBCAM
-# ==========================================
 
 cap = cv2.VideoCapture(0)
 
@@ -184,6 +174,48 @@ while True:
     if cv2.waitKey(1) & 0xFF == ord('q'):
         break
 
+---
+## 7. Hasil Filter Color Image
+
+### Gambar Asli
+
+![Gambar Asli](gambar_asli.png)
+
+### Grayscale
+
+![Grayscale](grayscale.png)
+
+### Filter Green
+
+![Filter Green](filter_green.png)
+
+### Filter Pink
+
+![Filter Pink](filter_pink.png)
+
+---
+
+## 8. Hasil Perubahan Warna Menggunakan HSV
+
+### Colorful Image
+
+![Colorful Image](colorful.png)
+
+Hasil menunjukkan perubahan warna gambar secara dinamis dengan mengubah nilai Hue pada ruang warna HSV.
+
+---
+
+## 9. Hasil Filter Color Video
+
+### Kamera Asli
+
+![Kamera Asli](kamera_asli.png)
+
+### Filter Hijau
+
+![Filter Hijau](filter_hijau.png)
+
+Hasil menunjukkan bahwa filter warna dapat diterapkan pada video secara real-time menggunakan webcam. Kamera asli digunakan sebagai pembanding, sedangkan tampilan filter hijau merupakan hasil manipulasi channel warna pada setiap frame video.
 
 cap.release()
 cv2.destroyAllWindows()
