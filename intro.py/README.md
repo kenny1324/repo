@@ -180,19 +180,19 @@ while True:
 
 ### Gambar Asli
 
-![Gambar Asli](gambar_asli.png)
+![Gambar Asli](image/gambar_asli.png)
 
 ### Grayscale
 
-![Grayscale](grayscale.png)
+![Grayscale](image/grayscale.png)
 
 ### Filter Green
 
-![Filter Green](filter_green.png)
+![Filter Green](image/filter_green.png)
 
 ### Filter Pink
 
-![Filter Pink](filter_pink.png)
+![Filter Pink](image/filter_pink.png)
 
 ---
 
@@ -200,7 +200,7 @@ while True:
 
 ### Colorful Image
 
-![Colorful Image](colorful.png)
+![Colorful Image](image/colorful.png)
 
 Hasil menunjukkan perubahan warna gambar secara dinamis dengan mengubah nilai Hue pada ruang warna HSV.
 
@@ -210,13 +210,11 @@ Hasil menunjukkan perubahan warna gambar secara dinamis dengan mengubah nilai Hu
 
 ### Kamera Asli
 
-![Kamera Asli](kamera_asli.png)
+![Kamera Asli](image/kamera_asli.png)
 
 ### Filter Hijau
 
-![Filter Hijau](filter_hijau.png)
+![Filter Hijau](image/filter_hijau.png)
 
 Hasil menunjukkan bahwa filter warna dapat diterapkan pada video secara real-time menggunakan webcam. Kamera asli digunakan sebagai pembanding, sedangkan tampilan filter hijau merupakan hasil manipulasi channel warna pada setiap frame video.
 
-cap.release()
-cv2.destroyAllWindows()
