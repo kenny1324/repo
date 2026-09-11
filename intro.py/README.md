@@ -1,13 +1,11 @@
-# Dokumentasi
+# Tugas 1 PCV
 
-Project ini merupakan implementasi dasar pengolahan citra dan video menggunakan **Python dan OpenCV**.
-
-Project ini mencakup beberapa proses, yaitu:
+Tugas ini mencakup beberapa proses, yaitu:
 
 - Read Image
 - Show Image
 - Filter Color Image
-- Perubahan Warna Menggunakan HSV
+- Perubahan Warna Menggunakan HSV (tambahan)
 - Filter Color Video menggunakan Webcam
 
 ---
@@ -180,19 +178,19 @@ while True:
 
 ### Gambar Asli
 
-![Gambar Asli](image/gambar_asli.png)
+![Gambar Asli](image/1.png)
 
 ### Grayscale
 
-![Grayscale](image/grayscale.png)
+![Grayscale](image/2.png)
 
 ### Filter Green
 
-![Filter Green](image/filter_green.png)
+![Filter Green](image/3.png)
 
 ### Filter Pink
 
-![Filter Pink](image/filter_pink.png)
+![Filter Pink](image/4.png)
 
 ---
 
@@ -200,7 +198,7 @@ while True:
 
 ### Colorful Image
 
-![Colorful Image](image/colorful.png)
+![Colorful Image](image/5.png)
 
 Hasil menunjukkan perubahan warna gambar secara dinamis dengan mengubah nilai Hue pada ruang warna HSV.
 
@@ -210,11 +208,11 @@ Hasil menunjukkan perubahan warna gambar secara dinamis dengan mengubah nilai Hu
 
 ### Kamera Asli
 
-![Kamera Asli](image/kamera_asli.png)
+![Kamera Asli](image/6.png)
 
 ### Filter Hijau
 
-![Filter Hijau](image/filter_hijau.png)
+![Filter Hijau](image/image.png)
 
 Hasil menunjukkan bahwa filter warna dapat diterapkan pada video secara real-time menggunakan webcam. Kamera asli digunakan sebagai pembanding, sedangkan tampilan filter hijau merupakan hasil manipulasi channel warna pada setiap frame video.
 
