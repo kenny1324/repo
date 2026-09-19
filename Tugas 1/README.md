@@ -222,6 +222,6 @@ Gambar di atas merupakan tampilan asli dari webcam sebelum diberikan filter warn
 
 ### Filter Hijau
 
-![Filter Hijau](image/image.png)
+![Filter Hijau](image/7.png)
 
 Hasil video menjadi lebih dominan berwarna hijau karena setiap frame diberikan manipulasi terhadap channel warna. Proses tersebut dilakukan dengan membuat salinan frame menggunakan `green = frame.copy()`. Setelah itu, channel Blue dikurangi menjadi 30% dari nilai aslinya menggunakan kode `green[:, :, 0] = green[:, :, 0] * 0.3`. Channel Green dipertahankan menggunakan kode `green[:, :, 1] = np.minimum(green[:, :, 1] * 1, 255)`, sedangkan channel Red juga dikurangi menjadi 30% menggunakan kode `green[:, :, 2] = green[:, :, 2] * 0.3`. Karena channel Blue dan Red dikurangi sementara channel Green dipertahankan, maka warna hijau menjadi lebih dominan pada setiap frame. Filter ini tidak membuat seluruh piksel menjadi satu warna hijau yang sama, karena nilai warna asli dari setiap piksel tetap digunakan dan hanya intensitas channel tertentu yang diubah. Proses tersebut dilakukan berulang kali pada setiap frame webcam sehingga menghasilkan video dengan filter hijau secara real-time.
