@@ -79,11 +79,14 @@ np.pad(..., mode="edge")
 Sebagai contoh:
 
 ```text
-Gambar asli:
+Gambar asli:         Mode edge :
+ 
+                 10  10  20  30  30
+10  20  30       10  10  20  30  30
+40  50  60       40  40  50  60  60
+70  80  90       70  70  80  90  90
+                 70  70  80  90  90
 
-10  20  30
-40  50  60
-70  80  90
 ```
 
 Pada bagian luar gambar, nilai tepi diperpanjang sehingga proses kernel `3 × 3` tetap dapat dilakukan pada piksel paling luar.
