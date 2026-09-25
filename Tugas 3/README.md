@@ -782,7 +782,7 @@ Dengan demikian, Laplacian dapat digunakan untuk menemukan **bagian gambar yang 
 
 ---
 
-## 4. Perbedaan Setiap Filter
+# 4. Perbedaan Setiap Filter
 
 Secara umum, fungsi dari setiap proses pada program adalah:
 
