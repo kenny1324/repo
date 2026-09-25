@@ -97,7 +97,7 @@ Dengan demikian, ukuran gambar hasil filtering tetap sama dengan ukuran gambar a
 
 # 3. Hasil Filtering Spasial
 
-## Gambar Asli
+## 1.Gambar Asli
 
 ![Gambar Asli](image/1.png)
 
@@ -109,7 +109,7 @@ Gambar asli digunakan sebagai pembanding untuk melihat perubahan yang terjadi se
 
 ---
 
-## 1. Mean Filter / Average Filter
+## 2. Mean Filter / Average Filter
 
 ![Mean Filter](image/2.png)
 
@@ -208,7 +208,7 @@ Mean Filter juga dapat mengurangi detail kecil dan noise karena setiap piksel ti
 
 ---
 
-## 2. Gaussian Blur
+## 3. Gaussian Blur
 
 ![Gaussian Blur](image/3.png)
 
@@ -284,7 +284,7 @@ Gaussian Blur sering digunakan untuk **mengurangi noise dan menghaluskan gambar 
 
 ---
 
-## 3. Median Filter
+## 4. Median Filter
 
 ![Median Filter](image/4.png)
 
@@ -364,7 +364,7 @@ Oleh karena itu, Median Filter sangat berguna untuk mengurangi **noise berupa pi
 
 ---
 
-## 4. Sharpening
+## 5. Sharpening
 
 ![Sharpening](image/5.png)
 
@@ -453,7 +453,7 @@ Jadi logika sharpening adalah **meningkatkan perbedaan intensitas di sekitar per
 
 ---
 
-## 5. Emboss
+## 6. Emboss
 
 ![Emboss](image/6.png)
 
@@ -511,7 +511,7 @@ Jadi Emboss bukan sekadar membuat gambar lebih tajam, tetapi membuat perubahan i
 
 ---
 
-## 6. Sobel X
+## 7. Sobel X
 
 ![Sobel X](image/7.png)
 
@@ -598,7 +598,7 @@ Jadi Sobel X mendeteksi lokasi yang mengalami perubahan intensitas pada arah hor
 
 ---
 
-## 7. Sobel Y
+## 8. Sobel Y
 
 ![Sobel Y](image/8.png)
 
@@ -687,7 +687,7 @@ Jadi Sobel Y terutama menonjolkan **tepi horizontal**.
 
 ---
 
-## 8. Laplacian
+## 9. Laplacian
 
 ![Laplacian](image/9.png)
 
@@ -782,7 +782,7 @@ Dengan demikian, Laplacian dapat digunakan untuk menemukan **bagian gambar yang 
 
 ---
 
-## 9. Perbedaan Setiap Filter
+## 4. Perbedaan Setiap Filter
 
 Secara umum, fungsi dari setiap proses pada program adalah:
 
@@ -799,7 +799,7 @@ Secara umum, fungsi dari setiap proses pada program adalah:
 
 ---
 
-# 13. Urutan Hasil Program
+# 5. Urutan Hasil Program
 
 Urutan gambar hasil yang digunakan dalam tugas ini adalah:
 
@@ -854,7 +854,7 @@ Sobel X dan Sobel Y memiliki arah tertentu, sedangkan Laplacian mendeteksi perub
 
 ---
 
-# 14. Kesimpulan Proses
+# 6. Kesimpulan Proses
 
 Filter spasial bekerja dengan cara mengambil nilai piksel di sekitar piksel yang sedang diproses, kemudian mengolah nilai tersebut menggunakan kernel atau aturan tertentu.
 
