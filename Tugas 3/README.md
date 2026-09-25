@@ -109,7 +109,7 @@ Gambar asli digunakan sebagai pembanding untuk melihat perubahan yang terjadi se
 
 ---
 
-# 4. Mean Filter / Average Filter
+## 1. Mean Filter / Average Filter
 
 ![Mean Filter](image/2.png)
 
@@ -208,7 +208,7 @@ Mean Filter juga dapat mengurangi detail kecil dan noise karena setiap piksel ti
 
 ---
 
-# 5. Gaussian Blur
+## 2. Gaussian Blur
 
 ![Gaussian Blur](image/3.png)
 
@@ -284,7 +284,7 @@ Gaussian Blur sering digunakan untuk **mengurangi noise dan menghaluskan gambar 
 
 ---
 
-# 6. Median Filter
+## 3. Median Filter
 
 ![Median Filter](image/4.png)
 
@@ -364,7 +364,7 @@ Oleh karena itu, Median Filter sangat berguna untuk mengurangi **noise berupa pi
 
 ---
 
-# 7. Sharpening
+## 4. Sharpening
 
 ![Sharpening](image/5.png)
 
@@ -453,7 +453,7 @@ Jadi logika sharpening adalah **meningkatkan perbedaan intensitas di sekitar per
 
 ---
 
-# 8. Emboss
+## 5. Emboss
 
 ![Emboss](image/6.png)
 
@@ -511,7 +511,7 @@ Jadi Emboss bukan sekadar membuat gambar lebih tajam, tetapi membuat perubahan i
 
 ---
 
-# 9. Sobel X
+## 6. Sobel X
 
 ![Sobel X](image/7.png)
 
@@ -598,7 +598,7 @@ Jadi Sobel X mendeteksi lokasi yang mengalami perubahan intensitas pada arah hor
 
 ---
 
-# 10. Sobel Y
+## 7. Sobel Y
 
 ![Sobel Y](image/8.png)
 
@@ -687,7 +687,7 @@ Jadi Sobel Y terutama menonjolkan **tepi horizontal**.
 
 ---
 
-# 11. Laplacian
+## 8. Laplacian
 
 ![Laplacian](image/9.png)
 
@@ -782,7 +782,7 @@ Dengan demikian, Laplacian dapat digunakan untuk menemukan **bagian gambar yang 
 
 ---
 
-# 12. Perbedaan Setiap Filter
+## 9. Perbedaan Setiap Filter
 
 Secara umum, fungsi dari setiap proses pada program adalah:
 
