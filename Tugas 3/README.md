@@ -97,7 +97,7 @@ Dengan demikian, ukuran gambar hasil filtering tetap sama dengan ukuran gambar a
 
 # 3. Hasil Filtering Spasial
 
-## 1.Gambar Asli
+## 1. Gambar Asli
 
 ![Gambar Asli](image/1.png)
 
