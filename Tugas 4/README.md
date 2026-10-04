@@ -258,7 +258,7 @@ $$
 
 # 4. Hasil Konversi CMYK
 
-## 1. RGB
+## 4.1 RGB
 
 ![RGB](image/1.png)
 
@@ -268,7 +268,7 @@ Gambar digunakan sebagai input sebelum dilakukan proses konversi ke model warna 
 
 ---
 
-## 2. CMYK - Cyan
+## 4.2 CMYK - Cyan
 
 ![CMYK Cyan](image/2.png)
 
@@ -284,7 +284,7 @@ Nilai channel kemudian ditampilkan menggunakan grayscale sehingga bagian dengan 
 
 ---
 
-## 3. CMYK - Magenta
+## 4.3 CMYK - Magenta
 
 ![CMYK Magenta](image/3.png)
 
@@ -300,7 +300,7 @@ Nilai Magenta diperoleh dari kebalikan channel Green yang telah dinormalisasi.
 
 ---
 
-## 4. CMYK - Yellow
+## 4.4 CMYK - Yellow
 
 ![CMYK Yellow](image/4.png)
 
@@ -316,7 +316,7 @@ Nilai Yellow diperoleh dari kebalikan channel Blue.
 
 ---
 
-## 5. CMYK - Black
+## 4.5 CMYK - Black
 
 ![CMYK Black](image/5.png)
 
@@ -493,7 +493,7 @@ Hue ditetapkan menjadi:
 
 # 6. Hasil Konversi HSI
 
-## 6. Hue
+## 6.1 Hue
 
 ![HSI Hue](image/6.png)
 
@@ -511,7 +511,7 @@ Visualisasi menggunakan colormap `hsv` sehingga perbedaan nilai Hue dapat terlih
 
 ---
 
-## 7. Saturation
+## 6.2 Saturation
 
 ![HSI Saturation](image/7.png)
 
@@ -525,7 +525,7 @@ Bagian dengan saturation lebih tinggi akan memiliki intensitas yang lebih tinggi
 
 ---
 
-## 8. Intensity
+## 6.3 Intensity
 
 ![HSI Intensity](image/8.png)
 
@@ -695,7 +695,7 @@ maka tidak terdapat perbedaan antara nilai maksimum dan minimum, sehingga Hue di
 
 # 8. Hasil Konversi HSV
 
-## 9. Hue
+## 8.1 Hue
 
 ![HSV Hue](image/9.png)
 
@@ -713,7 +713,7 @@ Visualisasi menggunakan colormap `hsv`.
 
 ---
 
-## 10. Saturation
+## 8.2 Saturation
 
 ![HSV Saturation](image/10.png)
 
@@ -731,7 +731,7 @@ Nilai yang lebih tinggi menunjukkan warna yang lebih jenuh, sedangkan nilai yang
 
 ---
 
-## 11. Value
+## 8.3 Value
 
 ![HSV Value](image/11.png)
 
