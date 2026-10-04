@@ -519,6 +519,10 @@ Gambar ini menunjukkan channel **Saturation** dari model HSI.
 
 Nilai saturation menunjukkan tingkat kejenuhan warna.
 
+$$
+S = 1 - \frac{3\min(R,G,B)}{R+G+B}
+$$
+
 Nilai saturation kemudian ditampilkan dalam grayscale.
 
 Bagian dengan saturation lebih tinggi akan memiliki intensitas yang lebih tinggi, sedangkan warna yang mendekati grayscale memiliki nilai saturation yang lebih rendah.
