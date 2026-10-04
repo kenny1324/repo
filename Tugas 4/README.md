@@ -2,43 +2,34 @@
 
 Tugas ini membahas **Model Warna pada Citra** menggunakan beberapa model warna, yaitu **RGB, CMYK, HSI, dan HSV**.
 
-Proses yang dilakukan pada program ini meliputi:
+Pada tugas ini, gambar dibaca menggunakan OpenCV. Karena OpenCV membaca gambar dalam format **BGR**, gambar terlebih dahulu dikonversi menjadi **RGB**. Setelah itu, dilakukan konversi RGB ke CMYK, HSI, dan HSV secara manual menggunakan NumPy berdasarkan rumus masing-masing model warna.
 
-* RGB
-* CMYK - Cyan
-* CMYK - Magenta
-* CMYK - Yellow
-* CMYK - Black
-* HSI - Hue
-* HSI - Saturation
-* HSI - Intensity
-* HSV - Hue
-* HSV - Saturation
-* HSV - Value
+Model warna yang digunakan:
 
-Pada tugas ini, proses konversi RGB ke CMYK, HSI, dan HSV dilakukan secara **manual menggunakan NumPy berdasarkan rumus masing-masing model warna**.
-
-Program menggunakan OpenCV untuk membaca gambar dan mengubah format gambar dari BGR menjadi RGB. Setelah itu, proses konversi dilakukan menggunakan fungsi yang dibuat sendiri.
+* RGB (Red, Green, Blue)
+* CMYK (Cyan, Magenta, Yellow, Black)
+* HSI (Hue, Saturation, Intensity)
+* HSV (Hue, Saturation, Value)
 
 ---
 
 # 1. Model Warna RGB
 
-**RGB (Red, Green, Blue)** merupakan model warna yang menggunakan tiga komponen utama, yaitu:
+**RGB (Red, Green, Blue)** merupakan model warna yang menggunakan tiga channel utama:
 
 * Red (R)
 * Green (G)
 * Blue (B)
 
-Setiap channel RGB memiliki nilai antara:
+Setiap channel memiliki rentang nilai:
 
 ```text
 0 - 255
 ```
 
-Nilai ketiga channel tersebut menentukan warna dari setiap piksel.
+Nilai dari ketiga channel tersebut menentukan warna suatu piksel.
 
-Sebagai contoh:
+Contoh:
 
 ```text
 R = 255
@@ -48,79 +39,41 @@ B = 0
 
 menghasilkan warna merah.
 
-Sedangkan:
+Pada gambar yang digunakan dalam tugas ini, program mengambil **piksel yang berada di tengah gambar** sebagai contoh perhitungan.
+
+Nilai piksel tersebut adalah:
 
 ```text
-R = 0
-G = 255
-B = 0
+R = 203
+G = 192
+B = 190
 ```
 
-menghasilkan warna hijau.
-
-Dan:
-
-```text
-R = 0
-G = 0
-B = 255
-```
-
-menghasilkan warna biru.
-
-Jika ketiga nilai memiliki nilai yang sama:
-
-```text
-R = G = B
-```
-
-maka warna yang dihasilkan adalah grayscale.
-
-Contohnya:
-
-```text
-R = 0
-G = 0
-B = 0
-```
-
-adalah hitam.
-
-Sedangkan:
-
-```text
-R = 255
-G = 255
-B = 255
-```
-
-adalah putih.
-
-RGB merupakan model warna yang umum digunakan pada perangkat seperti monitor, kamera digital, dan layar komputer.
+Data RGB inilah yang digunakan sebagai input untuk contoh konversi ke CMYK, HSI, dan HSV pada bagian berikutnya.
 
 ---
 
 # 2. Konversi BGR ke RGB
 
-OpenCV secara default membaca gambar menggunakan urutan channel:
+OpenCV secara default membaca gambar dengan urutan channel:
 
 ```text
 BGR
 ```
 
-sedangkan rumus yang digunakan dalam tugas ini menggunakan:
+Sedangkan perhitungan pada tugas ini menggunakan urutan:
 
 ```text
 RGB
 ```
 
-Oleh karena itu, setelah gambar dibaca menggunakan:
+Gambar dibaca menggunakan:
 
 ```python
 image_bgr = cv2.imread(image_path)
 ```
 
-gambar dikonversi menggunakan:
+Kemudian dikonversi:
 
 ```python
 image_rgb = cv2.cvtColor(
@@ -129,7 +82,7 @@ image_rgb = cv2.cvtColor(
 )
 ```
 
-Proses tersebut mengubah urutan channel dari:
+Sehingga urutan channel berubah dari:
 
 ```text
 B → G → R
@@ -141,34 +94,40 @@ menjadi:
 R → G → B
 ```
 
-Sehingga nilai channel dapat digunakan dengan benar pada rumus RGB, CMYK, HSI, dan HSV.
+Dengan demikian, nilai piksel tengah yang digunakan untuk perhitungan adalah:
+
+```text
+R = 203
+G = 192
+B = 190
+```
 
 ---
 
 # 3. Konversi RGB ke CMYK
 
-**CMYK** merupakan model warna yang terdiri dari empat komponen:
+**CMYK** terdiri dari empat komponen:
 
 * Cyan (C)
 * Magenta (M)
 * Yellow (Y)
 * Black (K)
 
-CMYK banyak digunakan pada proses pencetakan karena model ini bekerja berdasarkan kombinasi tinta.
+Model CMYK banyak digunakan pada sistem pencetakan karena menggunakan kombinasi tinta.
 
-Sebelum melakukan perhitungan, nilai RGB dinormalisasi dari:
+Sebelum menghitung CMYK, nilai RGB terlebih dahulu dinormalisasi dari rentang `0-255` menjadi `0-1`.
 
-```text
-0 - 255
-```
+## 3.1 Normalisasi RGB
 
-menjadi:
+Data piksel:
 
 ```text
-0 - 1
+R = 203
+G = 192
+B = 190
 ```
 
-Rumus normalisasi:
+Rumus:
 
 $$
 R_n=\frac{R}{255}
@@ -182,55 +141,131 @@ $$
 B_n=\frac{B}{255}
 $$
 
-Setelah itu dilakukan konversi RGB menjadi CMY.
+Perhitungannya:
+
+$$
+R_n=\frac{203}{255}=0.7961
+$$
+
+$$
+G_n=\frac{192}{255}=0.7529
+$$
+
+$$
+B_n=\frac{190}{255}=0.7451
+$$
+
+Sehingga:
+
+```text
+Rn = 0.7961
+Gn = 0.7529
+Bn = 0.7451
+```
 
 ---
 
-## 3.1 Cyan
+## 3.2 Menghitung Cyan
 
-Rumus Cyan:
+Rumus:
 
 $$
-C=1-R
+C=1-R_n
 $$
 
-Semakin besar nilai Red, maka nilai Cyan akan semakin kecil.
+Substitusi:
 
-Sebaliknya, semakin kecil nilai Red, maka nilai Cyan akan semakin besar.
+$$
+C=1-0.7961
+$$
+
+$$
+C=0.2039
+$$
+
+Nilai ini masih merupakan nilai awal Cyan sebelum dikurangi komponen Black.
 
 ---
 
-## 3.2 Magenta
+## 3.3 Menghitung Magenta
 
-Rumus Magenta:
+Rumus:
 
 $$
-M=1-G
+M=1-G_n
 $$
 
-Nilai Magenta diperoleh dari kebalikan channel Green setelah RGB dinormalisasi.
+Substitusi:
+
+$$
+M=1-0.7529
+$$
+
+$$
+M=0.2471
+$$
 
 ---
 
-## 3.3 Yellow
+## 3.4 Menghitung Yellow
 
-Rumus Yellow:
+Rumus:
 
 $$
-Y=1-B
+Y=1-B_n
 $$
 
-Nilai Yellow diperoleh dari kebalikan channel Blue.
+Substitusi:
+
+$$
+Y=1-0.7451
+$$
+
+$$
+Y=0.2549
+$$
 
 ---
 
-## 3.4 Black
+## 3.5 Menghitung Black
 
 Nilai Black diperoleh dari nilai minimum C, M, dan Y:
 
 $$
 K=\min(C,M,Y)
 $$
+
+Dengan:
+
+```text
+C = 0.2039
+M = 0.2471
+Y = 0.2549
+```
+
+maka:
+
+$$
+K=\min(0.2039,0.2471,0.2549)
+$$
+
+$$
+K=0.2039
+$$
+
+Jika dikonversikan menjadi persen:
+
+$$
+K=0.2039\times100\%
+$$
+
+$$
+K=20.39\%
+$$
+
+---
+
+## 3.6 Menghitung C, M, dan Y Setelah K
 
 Setelah nilai K diperoleh, nilai C, M, dan Y dihitung kembali menggunakan:
 
@@ -246,25 +281,88 @@ $$
 Y'=\frac{Y-K}{1-K}
 $$
 
-Perhitungan tersebut dilakukan untuk setiap piksel pada gambar.
-
-Program juga menggunakan kondisi untuk menghindari pembagian dengan nol ketika:
+### Cyan
 
 $$
-1-K=0
+C'=
+\frac{0.2039-0.2039}
+{1-0.2039}
 $$
+
+$$
+C'=0
+$$
+
+Sehingga:
+
+```text
+C = 0.00%
+```
+
+### Magenta
+
+$$
+M'=
+\frac{0.2471-0.2039}
+{1-0.2039}
+$$
+
+$$
+M'\approx0.0542
+$$
+
+Sehingga:
+
+```text
+M = 5.42%
+```
+
+### Yellow
+
+$$
+Y'=
+\frac{0.2549-0.2039}
+{1-0.2039}
+$$
+
+$$
+Y'\approx0.0640
+$$
+
+Sehingga:
+
+```text
+Y = 6.40%
+```
+
+### Hasil CMYK
+
+Jadi, dari piksel RGB:
+
+```text
+R = 203
+G = 192
+B = 190
+```
+
+diperoleh:
+
+```text
+C = 0.00%
+M = 5.42%
+Y = 6.40%
+K = 20.39%
+```
 
 ---
 
-# 4. Hasil Konversi CMYK
+# 4. Hasil Visualisasi CMYK
 
 ## 4.1 RGB
 
 ![RGB](image/1.png)
 
-Gambar ini merupakan gambar asli dalam model warna RGB.
-
-Gambar digunakan sebagai input sebelum dilakukan proses konversi ke model warna lainnya.
+Gambar asli dalam model warna RGB yang digunakan sebagai input proses konversi.
 
 ---
 
@@ -272,15 +370,9 @@ Gambar digunakan sebagai input sebelum dilakukan proses konversi ke model warna 
 
 ![CMYK Cyan](image/2.png)
 
-Gambar ini menunjukkan channel **Cyan (C)** hasil konversi dari RGB ke CMYK.
+Visualisasi channel **Cyan (C)**.
 
-Channel Cyan diperoleh dari:
-
-$$
-C=1-R
-$$
-
-Nilai channel kemudian ditampilkan menggunakan grayscale sehingga bagian dengan nilai Cyan lebih tinggi akan memiliki intensitas yang lebih tinggi pada visualisasi.
+Nilai Cyan yang lebih tinggi ditampilkan dengan intensitas grayscale yang lebih tinggi.
 
 ---
 
@@ -288,15 +380,9 @@ Nilai channel kemudian ditampilkan menggunakan grayscale sehingga bagian dengan 
 
 ![CMYK Magenta](image/3.png)
 
-Gambar ini menunjukkan channel **Magenta (M)**.
+Visualisasi channel **Magenta (M)**.
 
-Rumus yang digunakan:
-
-$$
-M=1-G
-$$
-
-Nilai Magenta diperoleh dari kebalikan channel Green yang telah dinormalisasi.
+Nilai Magenta diperoleh berdasarkan kebalikan channel Green setelah dilakukan normalisasi.
 
 ---
 
@@ -304,15 +390,9 @@ Nilai Magenta diperoleh dari kebalikan channel Green yang telah dinormalisasi.
 
 ![CMYK Yellow](image/4.png)
 
-Gambar ini menunjukkan channel **Yellow (Y)**.
+Visualisasi channel **Yellow (Y)**.
 
-Rumus yang digunakan:
-
-$$
-Y=1-B
-$$
-
-Nilai Yellow diperoleh dari kebalikan channel Blue.
+Nilai Yellow diperoleh berdasarkan kebalikan channel Blue setelah dilakukan normalisasi.
 
 ---
 
@@ -320,77 +400,67 @@ Nilai Yellow diperoleh dari kebalikan channel Blue.
 
 ![CMYK Black](image/5.png)
 
-Gambar ini menunjukkan channel **Black (K)**.
+Visualisasi channel **Black (K)**.
 
-Nilai K diperoleh menggunakan:
-
-$$
-K=\min(C,M,Y)
-$$
-
-Artinya, untuk setiap piksel program mencari nilai terkecil dari Cyan, Magenta, dan Yellow.
-
-Nilai tersebut digunakan sebagai komponen Black pada model CMYK.
+Nilai K diperoleh dari nilai minimum C, M, dan Y pada setiap piksel.
 
 ---
 
 # 5. Konversi RGB ke HSI
 
-**HSI** merupakan model warna yang terdiri dari:
+**HSI** terdiri dari:
 
 * Hue (H)
 * Saturation (S)
 * Intensity (I)
 
-HSI memisahkan informasi warna dengan tingkat intensitas atau kecerahan.
+Berbeda dengan RGB, HSI memisahkan informasi warna dan tingkat intensitas sehingga jenis warna, kejenuhan, dan intensitas dapat dianalisis secara terpisah.
 
-Hal tersebut membuat model HSI berbeda dengan RGB karena warna dan tingkat kecerahan direpresentasikan secara terpisah.
+Contoh perhitungan berikut menggunakan piksel tengah gambar:
+
+```text
+R = 203
+G = 192
+B = 190
+```
 
 ---
 
 ## 5.1 Intensity
 
-Intensity menunjukkan nilai rata-rata dari ketiga channel RGB.
+Intensity menunjukkan nilai rata-rata dari R, G, dan B.
 
-Rumusnya:
+Rumus:
 
 $$
 I=\frac{R+G+B}{3}
 $$
 
-Sebagai contoh, jika:
+Substitusi:
+
+$$
+I=\frac{203+192+190}{3}
+$$
+
+$$
+I=\frac{585}{3}
+$$
+
+$$
+I=195
+$$
+
+Jadi:
 
 ```text
-R = 100
-G = 150
-B = 200
+I = 195.00
 ```
-
-maka:
-
-$$
-I=\frac{100+150+200}{3}
-$$
-
-$$
-I=150
-$$
-
-Jadi nilai Intensity piksel tersebut adalah `150`.
 
 ---
 
 ## 5.2 Saturation
 
-Saturation menunjukkan tingkat kemurnian atau kejenuhan warna.
-
-Pertama dicari nilai minimum dari ketiga channel:
-
-$$
-min(R,G,B)
-$$
-
-Kemudian digunakan rumus:
+Rumus Saturation pada HSI:
 
 $$
 S=
@@ -399,21 +469,61 @@ S=
 {R+G+B}
 $$
 
-Jika nilai RGB memiliki perbedaan yang besar, saturation cenderung lebih tinggi.
-
-Sebaliknya, ketika nilai RGB hampir sama, saturation akan mendekati nol.
-
-Pada gambar grayscale:
+Dari data:
 
 ```text
-R = G = B
+R = 203
+G = 192
+B = 190
 ```
 
-nilai saturation menjadi:
+nilai minimum:
+
+$$
+\min(203,192,190)=190
+$$
+
+Jumlah RGB:
+
+$$
+203+192+190=585
+$$
+
+Kemudian:
+
+$$
+S=
+1-
+\frac{3(190)}
+{585}
+$$
+
+$$
+S=
+1-\frac{570}{585}
+$$
+
+$$
+S=0.0256
+$$
+
+Untuk mendapatkan persen:
+
+$$
+S=0.0256\times100\%
+$$
+
+$$
+S=2.56\%
+$$
+
+Jadi:
 
 ```text
-S = 0
+S = 2.56%
 ```
+
+Semakin kecil perbedaan nilai R, G, dan B, maka nilai Saturation semakin mendekati nol.
 
 ---
 
@@ -421,7 +531,7 @@ S = 0
 
 Hue menunjukkan jenis atau posisi warna pada lingkaran warna.
 
-Perhitungan Hue menggunakan rumus:
+Rumus awal:
 
 $$
 \theta=
@@ -437,103 +547,84 @@ $$
 \right)
 $$
 
-Hasil arccos diperoleh dalam radian kemudian dikonversi menjadi derajat.
+Dengan:
 
-Konversi dilakukan menggunakan:
-
-```python
-theta = np.degrees(theta)
+```text
+R = 203
+G = 192
+B = 190
 ```
 
-Kemudian nilai Hue ditentukan berdasarkan hubungan antara G dan B.
-
-Jika:
+Karena:
 
 $$
 G\geq B
 $$
 
-maka:
+maka program menggunakan:
 
 $$
 H=\theta
 $$
 
-Sedangkan jika:
-
-$$
-G<B
-$$
-
-maka:
-
-$$
-H=360-\theta
-$$
-
-Perbedaan tersebut diperlukan agar posisi Hue berada pada rentang:
+Setelah perhitungan dan konversi dari radian ke derajat diperoleh:
 
 ```text
-0° - 360°
+H = 8.21°
 ```
 
-Untuk piksel grayscale, ketika:
-
-$$
-R=G=B
-$$
-
-Hue ditetapkan menjadi:
+Jadi hasil HSI untuk piksel tersebut adalah:
 
 ```text
-0°
+H = 8.21°
+S = 2.56%
+I = 195.00
 ```
 
 ---
 
-# 6. Hasil Konversi HSI
+# 6. Hasil Visualisasi HSI
 
-## 6.1 Hue
+## 6.1 HSI - Hue
 
 ![HSI Hue](image/6.png)
 
-Gambar ini menunjukkan channel **Hue** dari model HSI.
+Visualisasi channel **Hue** dari HSI.
 
-Hue menunjukkan jenis warna berdasarkan posisi pada lingkaran warna dengan rentang:
+Hue berada pada rentang:
 
 ```text
 0° - 360°
 ```
 
-Nilai Hue dihitung menggunakan hubungan matematis antara channel R, G, dan B.
-
-Visualisasi menggunakan colormap `hsv` sehingga perbedaan nilai Hue dapat terlihat sebagai perbedaan warna.
+Visualisasi menggunakan colormap `hsv` agar perbedaan posisi warna dapat terlihat.
 
 ---
 
-## 6.2 Saturation
+## 6.2 HSI - Saturation
 
 ![HSI Saturation](image/7.png)
 
-Gambar ini menunjukkan channel **Saturation** dari model HSI.
+Visualisasi channel **Saturation**.
 
-Nilai saturation menunjukkan tingkat kejenuhan warna.
+Saturation dihitung menggunakan:
 
 $$
-S = 1 - \frac{3\min(R,G,B)}{R+G+B}
+S=
+1-
+\frac{3\min(R,G,B)}
+{R+G+B}
 $$
 
-Nilai saturation kemudian ditampilkan dalam grayscale.
-
-Bagian dengan saturation lebih tinggi akan memiliki intensitas yang lebih tinggi, sedangkan warna yang mendekati grayscale memiliki nilai saturation yang lebih rendah.
+Hasilnya ditampilkan menggunakan grayscale.
 
 ---
 
-## 6.3 Intensity
+## 6.3 HSI - Intensity
 
 ![HSI Intensity](image/8.png)
 
-Gambar ini menunjukkan channel **Intensity** dari model HSI.
+Visualisasi channel **Intensity**.
 
 Intensity dihitung menggunakan:
 
@@ -541,49 +632,87 @@ $$
 I=\frac{R+G+B}{3}
 $$
 
-Nilai tersebut menunjukkan tingkat intensitas atau kecerahan rata-rata dari ketiga channel RGB.
+Nilai yang lebih tinggi menunjukkan intensitas yang lebih tinggi.
 
 ---
 
 # 7. Konversi RGB ke HSV
 
-**HSV** merupakan model warna yang terdiri dari:
+**HSV** terdiri dari:
 
 * Hue (H)
 * Saturation (S)
 * Value (V)
 
-HSV sering digunakan untuk merepresentasikan warna berdasarkan jenis warna, tingkat kejenuhan, dan tingkat kecerahan.
-
-Sebelum menghitung HSV, nilai RGB dinormalisasi menjadi:
+Contoh perhitungan menggunakan piksel tengah:
 
 ```text
-0 - 1
+R = 203
+G = 192
+B = 190
 ```
 
-Kemudian dicari:
+Karena HSV menggunakan RGB yang dinormalisasi, terlebih dahulu:
 
 $$
-MAX=\max(R,G,B)
+R_n=\frac{203}{255}=0.7961
 $$
 
-dan:
-
 $$
-MIN=\min(R,G,B)
+G_n=\frac{192}{255}=0.7529
 $$
 
-Selanjutnya dihitung:
+$$
+B_n=\frac{190}{255}=0.7451
+$$
+
+---
+
+## 7.1 Menentukan Maximum, Minimum, dan Delta
+
+Nilai maksimum:
+
+$$
+MAX=\max(R_n,G_n,B_n)
+$$
+
+$$
+MAX=\max(0.7961,0.7529,0.7451)
+$$
+
+$$
+MAX=0.7961
+$$
+
+Nilai minimum:
+
+$$
+MIN=\min(R_n,G_n,B_n)
+$$
+
+$$
+MIN=0.7451
+$$
+
+Selanjutnya:
 
 $$
 \Delta=MAX-MIN
 $$
 
+$$
+\Delta=0.7961-0.7451
+$$
+
+$$
+\Delta\approx0.0510
+$$
+
 ---
 
-## 7.1 Value
+## 7.2 Value
 
-Value menunjukkan nilai maksimum dari channel RGB.
+Value merupakan nilai maksimum dari RGB.
 
 Rumus:
 
@@ -591,45 +720,76 @@ $$
 V=\max(R,G,B)
 $$
 
-Jika salah satu channel memiliki nilai paling tinggi, maka nilai tersebut menjadi Value.
+Karena nilai maksimum adalah:
+
+$$
+V=0.7961
+$$
+
+maka dalam persen:
+
+$$
+V=0.7961\times100\%
+$$
+
+$$
+V=79.61\%
+$$
+
+Jadi:
+
+```text
+V = 79.61%
+```
 
 ---
 
-## 7.2 Saturation
+## 7.3 Saturation
 
-Saturation pada HSV dihitung menggunakan:
+Rumus:
 
 $$
 S=\frac{\Delta}{MAX}
 $$
 
-Jika:
+Substitusi:
 
 $$
-MAX=0
+S=
+\frac{0.0510}{0.7961}
 $$
 
-maka saturation ditetapkan menjadi:
+$$
+S\approx0.0640
+$$
+
+Dalam persen:
+
+$$
+S=0.0640\times100\%
+$$
+
+$$
+S=6.40\%
+$$
+
+Jadi:
 
 ```text
-0
+S = 6.40%
 ```
-
-Hal tersebut dilakukan untuk menghindari pembagian dengan nol.
 
 ---
 
-## 7.3 Hue
+## 7.4 Hue
 
-Perhitungan Hue pada HSV bergantung pada channel yang memiliki nilai maksimum.
-
-Jika:
+Karena nilai maksimum adalah channel Red:
 
 $$
 R=MAX
 $$
 
-maka:
+maka rumus Hue yang digunakan adalah:
 
 $$
 H=
@@ -639,75 +799,52 @@ H=
 \right)
 $$
 
-Jika:
-
-$$
-G=MAX
-$$
-
-maka:
-
-$$
-H=
-60
-\left(
-\frac{B-R}{\Delta}+2
-\right)
-$$
-
-Jika:
-
-$$
-B=MAX
-$$
-
-maka:
-
-$$
-H=
-60
-\left(
-\frac{R-G}{\Delta}+4
-\right)
-$$
-
-Jika hasil Hue negatif, maka ditambahkan:
-
-$$
-360^\circ
-$$
-
-sehingga nilai Hue berada pada rentang:
+Dengan:
 
 ```text
-0° - 360°
+G = 0.7529
+B = 0.7451
+Delta ≈ 0.0510
 ```
 
-Jika:
+maka:
 
 $$
-\Delta=0
+H=
+60
+\left(
+\frac{0.7529-0.7451}
+{0.0510}
+\right)
 $$
 
-maka tidak terdapat perbedaan antara nilai maksimum dan minimum, sehingga Hue ditetapkan menjadi:
+Hasil perhitungan memberikan:
 
 ```text
-0°
+H = 9.23°
+```
+
+Karena hasil Hue tidak negatif, tidak diperlukan penambahan 360°.
+
+Jadi hasil HSV untuk piksel tersebut adalah:
+
+```text
+H = 9.23°
+S = 6.40%
+V = 79.61%
 ```
 
 ---
 
-# 8. Hasil Konversi HSV
+# 8. Hasil Visualisasi HSV
 
-## 8.1 Hue
+## 8.1 HSV - Hue
 
 ![HSV Hue](image/9.png)
 
-Gambar ini menunjukkan channel **Hue** dari model HSV.
+Visualisasi channel **Hue** dari model HSV.
 
-Hue menunjukkan jenis warna berdasarkan posisi warna pada lingkaran warna.
-
-Nilai Hue berada pada rentang:
+Hue berada pada rentang:
 
 ```text
 0° - 360°
@@ -717,95 +854,105 @@ Visualisasi menggunakan colormap `hsv`.
 
 ---
 
-## 8.2 Saturation
+## 8.2 HSV - Saturation
 
 ![HSV Saturation](image/10.png)
 
-Gambar ini menunjukkan channel **Saturation** dari model HSV.
+Visualisasi channel **Saturation** dari HSV.
 
-Saturation menunjukkan tingkat kejenuhan warna.
-
-Nilai saturation dihitung menggunakan:
+Rumus:
 
 $$
 S=\frac{\Delta}{MAX}
 $$
 
-Nilai yang lebih tinggi menunjukkan warna yang lebih jenuh, sedangkan nilai yang mendekati nol menunjukkan warna yang lebih mendekati grayscale.
+Semakin tinggi nilai Saturation, semakin kuat atau jenuh warna tersebut.
 
 ---
 
-## 8.3 Value
+## 8.3 HSV - Value
 
 ![HSV Value](image/11.png)
 
-Gambar ini menunjukkan channel **Value** dari model HSV.
+Visualisasi channel **Value** dari HSV.
 
-Value dihitung menggunakan:
+Rumus:
 
 $$
 V=\max(R,G,B)
 $$
 
-Nilai Value menunjukkan tingkat kecerahan berdasarkan channel RGB yang memiliki nilai paling tinggi.
+Value menunjukkan tingkat kecerahan berdasarkan nilai channel RGB terbesar.
 
 ---
 
-# 9. Contoh Konversi Satu Piksel
+# 9. Ringkasan Contoh Konversi Piksel
 
-Program juga mengambil **piksel yang berada di tengah gambar** untuk menunjukkan contoh hasil konversi.
+Program mengambil piksel tengah gambar sebagai contoh perhitungan.
 
-Posisi piksel ditentukan menggunakan:
-
-```python
-center_y = height // 2
-center_x = width // 2
-```
-
-Kemudian nilai RGB piksel tersebut diambil:
-
-```python
-rgb_pixel = image_rgb[
-    center_y,
-    center_x
-]
-```
-
-Nilai tersebut kemudian dipisahkan menjadi:
-
-```text
-R
-G
-B
-```
-
-Program menampilkan hasil konversi piksel tersebut ke dalam:
+Data awal:
 
 ```text
 RGB
-CMYK
-HSI
-HSV
+R = 203
+G = 192
+B = 190
 ```
 
-Untuk CMYK, hasil ditampilkan dalam bentuk persentase.
+Setelah dilakukan konversi diperoleh:
 
-Untuk HSI dan HSV, Hue ditampilkan dalam derajat.
+```text
+CMYK
+C = 0.00%
+M = 5.42%
+Y = 6.40%
+K = 20.39%
+```
 
-Dengan demikian, program tidak hanya menghasilkan visualisasi seluruh gambar, tetapi juga menunjukkan contoh nilai numerik dari satu piksel.
+```text
+HSI
+H = 8.21°
+S = 2.56%
+I = 195.00
+```
+
+```text
+HSV
+H = 9.23°
+S = 6.40%
+V = 79.61%
+```
+
+Ringkasannya:
+
+| Model | Komponen |  Hasil |
+| ----- | -------- | -----: |
+| RGB   | R        |    203 |
+| RGB   | G        |    192 |
+| RGB   | B        |    190 |
+| CMYK  | C        |  0.00% |
+| CMYK  | M        |  5.42% |
+| CMYK  | Y        |  6.40% |
+| CMYK  | K        | 20.39% |
+| HSI   | H        |  8.21° |
+| HSI   | S        |  2.56% |
+| HSI   | I        | 195.00 |
+| HSV   | H        |  9.23° |
+| HSV   | S        |  6.40% |
+| HSV   | V        | 79.61% |
+
+Contoh tersebut menunjukkan bagaimana **satu piksel RGB yang sama dapat direpresentasikan dalam tiga model warna yang berbeda**.
 
 ---
 
 # 10. Perbedaan Model Warna
 
-Secara umum, masing-masing model warna memiliki karakteristik yang berbeda.
-
-| Model Warna | Komponen                     | Fungsi Utama                                                      |
-| ----------- | ---------------------------- | ----------------------------------------------------------------- |
-| RGB         | Red, Green, Blue             | Representasi warna berbasis cahaya                                |
-| CMYK        | Cyan, Magenta, Yellow, Black | Representasi warna berbasis tinta                                 |
-| HSI         | Hue, Saturation, Intensity   | Memisahkan warna dan intensitas                                   |
-| HSV         | Hue, Saturation, Value       | Merepresentasikan warna berdasarkan Hue, kejenuhan, dan kecerahan |
+| Model Warna | Komponen                     | Karakteristik                              |
+| ----------- | ---------------------------- | ------------------------------------------ |
+| RGB         | Red, Green, Blue             | Representasi warna berbasis cahaya         |
+| CMYK        | Cyan, Magenta, Yellow, Black | Representasi warna berbasis tinta          |
+| HSI         | Hue, Saturation, Intensity   | Memisahkan warna dan intensitas            |
+| HSV         | Hue, Saturation, Value       | Memisahkan warna, kejenuhan, dan kecerahan |
 
 ### RGB
 
@@ -813,7 +960,7 @@ Secara umum, masing-masing model warna memiliki karakteristik yang berbeda.
 R + G + B
 ```
 
-RGB menggunakan tiga channel warna dasar untuk membentuk berbagai warna.
+Digunakan untuk merepresentasikan warna pada perangkat seperti monitor dan kamera.
 
 ### CMYK
 
@@ -821,7 +968,7 @@ RGB menggunakan tiga channel warna dasar untuk membentuk berbagai warna.
 C + M + Y + K
 ```
 
-CMYK menggunakan Cyan, Magenta, Yellow, dan Black dan lebih sesuai untuk sistem pencetakan.
+Lebih sesuai untuk sistem pencetakan yang menggunakan tinta.
 
 ### HSI
 
@@ -829,7 +976,7 @@ CMYK menggunakan Cyan, Magenta, Yellow, dan Black dan lebih sesuai untuk sistem 
 H + S + I
 ```
 
-HSI memisahkan jenis warna, tingkat kejenuhan, dan intensitas.
+Memisahkan informasi warna dari intensitas.
 
 ### HSV
 
@@ -837,13 +984,13 @@ HSI memisahkan jenis warna, tingkat kejenuhan, dan intensitas.
 H + S + V
 ```
 
-HSV memisahkan jenis warna, tingkat kejenuhan, dan nilai kecerahan.
+Memisahkan jenis warna, kejenuhan, dan nilai kecerahan.
 
 ---
 
 # 11. Urutan Hasil Program
 
-Urutan gambar hasil yang digunakan dalam tugas ini adalah:
+Program menampilkan hasil visualisasi satu per satu dalam urutan:
 
 ```text
 1.png  → RGB
@@ -859,35 +1006,70 @@ Urutan gambar hasil yang digunakan dalam tugas ini adalah:
 11.png → HSV - Value
 ```
 
-Struktur folder gambar:
+Setiap hasil ditampilkan menggunakan jendela Matplotlib secara bergantian. Jendela harus ditutup terlebih dahulu untuk melanjutkan ke hasil berikutnya.
+
+Struktur folder:
 
 ```text
-image/
-├── 1.png
-├── 2.png
-├── 3.png
-├── 4.png
-├── 5.png
-├── 6.png
-├── 7.png
-├── 8.png
-├── 9.png
-├── 10.png
-└── 11.png
+Tugas4/
+├── README.md
+├── tugas4.py
+├── rb.png
+└── image/
+    ├── 1.png
+    ├── 2.png
+    ├── 3.png
+    ├── 4.png
+    ├── 5.png
+    ├── 6.png
+    ├── 7.png
+    ├── 8.png
+    ├── 9.png
+    ├── 10.png
+    └── 11.png
 ```
 
 ---
 
 # 12. Kesimpulan
 
-Pada tugas ini dilakukan proses konversi model warna dari **RGB ke CMYK, HSI, dan HSV** secara manual menggunakan NumPy.
+Pada tugas ini dilakukan konversi model warna dari **RGB ke CMYK, HSI, dan HSV** secara manual menggunakan NumPy.
 
-RGB digunakan sebagai model warna awal karena gambar yang digunakan memiliki tiga channel utama yaitu Red, Green, dan Blue.
+Proses dimulai dengan membaca gambar menggunakan OpenCV. Karena OpenCV menggunakan format BGR, gambar dikonversi terlebih dahulu menjadi RGB sebelum digunakan dalam proses perhitungan.
 
-Pada model CMYK, RGB dikonversi menjadi Cyan, Magenta, Yellow, dan Black menggunakan proses normalisasi dan perhitungan berdasarkan nilai minimum setiap channel.
+Pada model **CMYK**, nilai RGB dinormalisasi terlebih dahulu, kemudian dihitung nilai Cyan, Magenta, Yellow, dan Black. Untuk contoh piksel dengan nilai:
 
-Pada model HSI, warna dipisahkan menjadi Hue, Saturation, dan Intensity. Hue menunjukkan jenis warna, Saturation menunjukkan tingkat kejenuhan, sedangkan Intensity menunjukkan rata-rata nilai RGB.
+```text
+R = 203
+G = 192
+B = 190
+```
 
-Pada model HSV, warna dipisahkan menjadi Hue, Saturation, dan Value. Hue menunjukkan jenis warna, Saturation menunjukkan tingkat kejenuhan, sedangkan Value menunjukkan nilai maksimum dari channel RGB.
+diperoleh:
 
-Dari proses tersebut dapat diketahui bahwa satu gambar RGB dapat direpresentasikan dalam beberapa model warna yang berbeda. Setiap model memiliki cara representasi dan tujuan penggunaan yang berbeda, sehingga pemilihan model warna dapat disesuaikan dengan kebutuhan pengolahan citra.
+```text
+C = 0.00%
+M = 5.42%
+Y = 6.40%
+K = 20.39%
+```
+
+Pada model **HSI**, nilai RGB digunakan untuk menghitung Hue, Saturation, dan Intensity. Dari piksel yang sama diperoleh:
+
+```text
+H = 8.21°
+S = 2.56%
+I = 195.00
+```
+
+Sedangkan pada model **HSV**, nilai maksimum, minimum, dan selisih RGB digunakan untuk menghitung Hue, Saturation, dan Value. Hasilnya:
+
+```text
+H = 9.23°
+S = 6.40%
+V = 79.61%
+```
+
+Dari tugas ini dapat dilihat bahwa **satu piksel RGB dapat direpresentasikan dengan cara yang berbeda pada setiap model warna**. RGB berfokus pada tiga komponen warna dasar, CMYK menggunakan pendekatan warna berbasis tinta, sedangkan HSI dan HSV memisahkan informasi warna dari tingkat kejenuhan dan intensitas atau kecerahan.
+
+Dengan demikian, setiap model warna memiliki karakteristik dan penggunaan yang berbeda dalam pengolahan citra.
