@@ -25,7 +25,7 @@ Tahap grayscale dan thresholding digunakan untuk menyiapkan citra sebelum operas
 
 Morfologi banyak digunakan dalam pengolahan citra untuk menghilangkan noise, memperbaiki bentuk objek, menyambungkan bagian yang terputus, dan menutup celah kecil.
 
-Operasi morfologi umumnya diterapkan pada citra biner. Pada citra biner, setiap piksel hanya memiliki dua kemungkinan nilai:
+Morfologi umumnya diterapkan pada citra biner. Pada citra biner, setiap piksel hanya memiliki dua kemungkinan nilai:
 
 - `0` → hitam
 - `255` → putih
@@ -35,9 +35,9 @@ Dalam pembahasan morfologi, terdapat istilah **foreground** dan **background**.
 - **Foreground** merupakan bagian citra yang dianggap sebagai objek utama.
 - **Background** merupakan bagian citra yang dianggap sebagai latar belakang.
 
-Namun, foreground tidak selalu harus berwarna putih. Foreground dapat berupa hitam atau putih, bergantung pada hasil thresholding dan representasi citra yang digunakan.
+Foreground tidak selalu harus berwarna putih. Foreground dapat berupa hitam atau putih, bergantung pada hasil thresholding dan representasi citra yang digunakan.
 
-Hal ini penting karena operasi morfologi pada OpenCV secara umum memperlakukan piksel putih (`255`) sebagai area aktif yang diproses, sedangkan piksel hitam (`0`) menjadi area di luarnya.
+Pada operasi morfologi standar OpenCV, piksel putih (`255`) diperlakukan sebagai area aktif, sedangkan piksel hitam (`0`) menjadi area di luarnya.
 
 Pada citra yang digunakan dalam tugas ini, objek atau foreground terlihat berwarna hitam dan latar belakang atau background berwarna putih. Oleh karena itu, perubahan visual akibat erosi dan dilasi akan terlihat berlawanan dengan contoh yang menggunakan objek putih sebagai foreground.
 
@@ -98,12 +98,7 @@ Jika intensitas piksel lebih besar daripada ambang, piksel menjadi putih. Jika i
 
 Pada tugas ini, thresholding menggunakan metode **Otsu**. Metode Otsu menentukan nilai threshold secara otomatis berdasarkan distribusi intensitas pada citra grayscale.
 
-Secara umum, metode Otsu mencari nilai ambang yang memisahkan piksel menjadi dua kelompok intensitas sehingga variansi antarkelompok menjadi sebesar mungkin. Dengan kata lain, metode ini berusaha memperoleh pemisahan yang baik antara dua kelompok intensitas berdasarkan histogram citra.
-
-Misalkan citra dibagi menjadi dua kelompok:
-
-- Kelompok 0: piksel dengan intensitas pada sisi bawah threshold.
-- Kelompok 1: piksel dengan intensitas pada sisi atas threshold.
+Secara umum, metode Otsu mencari nilai ambang yang memisahkan piksel menjadi dua kelompok sehingga variansi antarkelompok menjadi sebesar mungkin. Metode ini berusaha memperoleh pemisahan yang baik antara dua kelompok intensitas berdasarkan histogram citra.
 
 Variansi antarkelompok dapat dinyatakan sebagai:
 
@@ -122,7 +117,7 @@ Keterangan:
 
 Metode Otsu memilih threshold yang memaksimalkan nilai variansi antarkelompok tersebut.
 
-Hasil thresholding pada tugas ini menunjukkan objek berwarna hitam dan latar belakang berwarna putih. Hal ini berarti objek yang ingin diamati sebagai foreground direpresentasikan dengan nilai `0`, sedangkan area latar belakang direpresentasikan dengan nilai `255`.
+Hasil thresholding pada tugas ini menunjukkan objek berwarna hitam dan latar belakang berwarna putih. Hal ini berarti objek yang diamati sebagai foreground direpresentasikan dengan nilai `0`, sedangkan latar belakang direpresentasikan dengan nilai `255`.
 
 **Catatan penting:** Otsu menentukan threshold berdasarkan distribusi intensitas, bukan berdasarkan pemahaman tentang objek. Karena itu, metode ini tidak selalu menghasilkan pemisahan foreground dan background yang sempurna. Hasilnya bergantung pada karakteristik gambar yang digunakan.
 
@@ -159,7 +154,7 @@ Ukuran kernel memengaruhi seberapa kuat perubahan morfologi yang dihasilkan.
 - Kernel besar cenderung menghasilkan perubahan struktur yang lebih kuat.
 - Kernel yang berbeda bentuk dapat menghasilkan perubahan pada arah atau pola tertentu.
 
-Kernel 5 × 5 yang digunakan pada tugas ini memiliki ukuran sedang untuk mengamati perubahan struktur objek pada operasi erosi, dilasi, opening, dan closing.
+Kernel 5 × 5 yang digunakan pada tugas ini membantu mengamati perubahan struktur objek pada operasi erosi, dilasi, opening, dan closing.
 
 Kernel bukanlah gambar yang ditambahkan ke citra. Kernel merupakan elemen struktur yang menentukan hubungan spasial yang digunakan selama proses morfologi.
 
@@ -174,19 +169,18 @@ Pada citra biner yang menggunakan putih sebagai foreground, erosi akan mengikis 
 Secara matematis, erosi terhadap himpunan citra `A` dengan elemen struktur `B` dapat ditulis sebagai:
 
 $$
-A \ominus B
-=
-\{x \mid B_x \subseteq A\}
+A \ominus B = \{x \mid B_x \subseteq A\}
 $$
 
 Keterangan:
 
 - `A` adalah himpunan piksel foreground.
 - `B` adalah elemen struktur atau kernel.
-- `Bₓ` adalah kernel yang ditempatkan pada posisi `x`.
-- `⊖` merupakan operator erosi.
+- `B_x` adalah elemen struktur yang ditempatkan pada posisi `x`.
+- `\ominus` merupakan operator erosi.
+- `\subseteq` berarti merupakan himpunan bagian dari.
 
-Persamaan tersebut berarti suatu posisi dipertahankan sebagai bagian foreground apabila elemen struktur pada posisi itu seluruhnya berada di dalam foreground.
+Persamaan tersebut berarti suatu posisi dipertahankan sebagai bagian foreground apabila seluruh elemen struktur yang ditempatkan pada posisi tersebut berada di dalam area foreground.
 
 ### Mekanisme kerja erosi
 
@@ -230,9 +224,9 @@ Keterangan:
 
 - `A` adalah himpunan piksel foreground.
 - `B` adalah elemen struktur.
-- `B̂` merupakan elemen struktur yang direfleksikan.
-- `⊕` merupakan operator dilasi.
-- `∩` menyatakan irisan himpunan.
+- `\hat{B}` merupakan elemen struktur yang direfleksikan.
+- `\oplus` merupakan operator dilasi.
+- `\cap` menyatakan irisan himpunan.
 
 Persamaan tersebut menggambarkan bahwa posisi dapat menjadi bagian foreground jika elemen struktur yang ditempatkan pada posisi itu beririsan dengan foreground yang ada.
 
@@ -269,16 +263,16 @@ Dengan demikian, **hasil dilasi pada tugas ini menunjukkan area hitam yang cende
 Rumus opening dapat ditulis sebagai:
 
 $$
-A \circ B=(A\ominus B)\oplus B
+A \circ B = (A \ominus B) \oplus B
 $$
 
 Keterangan:
 
 - `A` adalah citra atau himpunan foreground.
 - `B` adalah elemen struktur.
-- `⊖` merupakan erosi.
-- `⊕` merupakan dilasi.
-- `∘` merupakan operator opening.
+- `\ominus` merupakan erosi.
+- `\oplus` merupakan dilasi.
+- `\circ` merupakan operator opening.
 
 ### Mekanisme kerja opening
 
@@ -296,9 +290,7 @@ Oleh karena itu, opening umumnya digunakan untuk menghilangkan noise kecil, meng
 
 ### Opening pada citra tugas ini
 
-Secara konseptual, opening biasanya dijelaskan dengan menganggap objek putih sebagai foreground. Namun, pada citra tugas ini, objek yang diamati berwarna hitam dan area putih merupakan background.
-
-Operasi opening OpenCV tetap bekerja terhadap area putih sebagai area aktif. Karena itu, interpretasi hasilnya harus memperhatikan warna area yang sedang diproses, bukan hanya menganggap bahwa objek hitam akan mengikuti efek opening pada foreground putih.
+Pada citra tugas ini, objek yang diamati berwarna hitam dan area putih menjadi area aktif yang diproses oleh OpenCV. Oleh karena itu, interpretasi hasil opening harus memperhatikan warna area yang sedang diproses, bukan hanya menganggap bahwa objek hitam akan mengikuti efek opening pada foreground putih.
 
 Pada citra ini, opening dapat menghilangkan atau mengubah komponen putih yang kecil, kemudian memperbesar kembali bagian putih yang bertahan setelah erosi. Efek akhirnya terhadap objek hitam bergantung pada bentuk, ukuran, dan susunan piksel pada citra.
 
@@ -313,16 +305,16 @@ Pada citra ini, opening dapat menghilangkan atau mengubah komponen putih yang ke
 Rumus closing dapat ditulis sebagai:
 
 $$
-A \bullet B=(A\oplus B)\ominus B
+A \bullet B = (A \oplus B) \ominus B
 $$
 
 Keterangan:
 
 - `A` adalah citra atau himpunan foreground.
 - `B` adalah elemen struktur.
-- `⊕` merupakan dilasi.
-- `⊖` merupakan erosi.
-- `•` merupakan operator closing.
+- `\oplus` merupakan dilasi.
+- `\ominus` merupakan erosi.
+- `\bullet` merupakan operator closing.
 
 ### Mekanisme kerja closing
 
