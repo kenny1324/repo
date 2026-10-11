@@ -72,7 +72,6 @@ erosion = cv2.erode(binary, kernel, iterations=1)
 
 Dalam operasi morfologi OpenCV, area putih merupakan area aktif yang diproses. Oleh karena foreground pada citra ini berwarna hitam, erosi mengikis area putih sehingga objek hitam dapat terlihat meluas.
 
-![Erosi](image/4.png)
 
 ## 6. Dilasi (Dilation)
 
@@ -84,7 +83,6 @@ dilation = cv2.dilate(binary, kernel, iterations=1)
 
 Dilasi memperluas area putih pada citra. Akibatnya, objek hitam yang menjadi foreground dapat terlihat menyusut.
 
-![Dilasi](image/5.png)
 
 ## 7. Opening
 
@@ -96,7 +94,6 @@ opening = cv2.morphologyEx(binary, cv2.MORPH_OPEN, kernel)
 
 Opening biasanya digunakan untuk menghilangkan komponen kecil atau noise pada area foreground. Pada tugas ini, OpenCV memproses area putih sehingga efek terhadap objek hitam perlu diamati berdasarkan hasil citra.
 
-![Opening](image/6.png)
 
 ## 8. Closing
 
@@ -108,7 +105,6 @@ closing = cv2.morphologyEx(binary, cv2.MORPH_CLOSE, kernel)
 
 Closing biasanya digunakan untuk menutup celah kecil atau lubang pada area foreground. Pada citra tugas ini, karena area putih diproses sebagai bagian aktif, efek terhadap objek hitam dapat berbeda dari contoh dengan foreground putih.
 
-![Closing](image/7.png)
 
 ## 9. Visualisasi Hasil
 
